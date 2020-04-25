@@ -1,15 +1,4 @@
-# DHCP Relay
-
-A simple DHCP Relay
-
-In this config, udp port 67 must be free on the host.
-
-```bash
-version: "2.4"
-
-services:
-
-  #DHCPRelay - DHCP Relay between host network and PiHole bridge
+ #DHCPRelay - DHCP Relay between host network and PiHole bridge
   dhcprelay:
     #image: modem7/hda:dhcprelay
     image: modem7/hda:dhcprelayalpine
@@ -21,4 +10,3 @@ services:
       - NET_ADMIN
     mem_limit: 20m
     mem_reservation: 5m
-```
