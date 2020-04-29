@@ -13,7 +13,7 @@ services:
 
   #DHCPRelay - DHCP Relay between host network and PiHole bridge
   dhcprelay:
-    image: modem7/hda:dhcprelay
+    image: modem7/dhcprelay
     restart: always
     network_mode: host
     container_name: DHCPRelay
