@@ -1,6 +1,6 @@
-# DHCP Relay
+# ISC DHCP Relay Agent
 
-A simple DHCP Relay
+A simple ISC DHCP Relay Agent
 
 In this config, udp port 67 must be free on the host.
 
