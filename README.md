@@ -1,6 +1,8 @@
 # ISC DHCP Relay Agent
 
-A simple ISC DHCP Relay Agent
+A simple ISC DHCP Relay Agent.
+
+The Internet Systems Consortium DHCP Relay Agent, dhcrelay, provides a means for relaying DHCP and BOOTP requests from a subnet to which no DHCP server is directly connected to one or more DHCP servers on other subnets. It supports both DHCPv4/BOOTP and DHCPv6 protocols. 
 
 In this config, udp port 67 must be free on the host.
 
@@ -11,8 +13,7 @@ services:
 
   #DHCPRelay - DHCP Relay between host network and PiHole bridge
   dhcprelay:
-    #image: modem7/hda:dhcprelay
-    image: modem7/hda:dhcprelayalpine
+    image: modem7/hda:dhcprelay
     restart: always
     network_mode: host
     container_name: DHCPRelay
