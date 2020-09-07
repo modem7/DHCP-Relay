@@ -17,15 +17,19 @@ version: "2.4"
 
 services:
 
-  #DHCPRelay - DHCP Relay between host network and PiHole bridge
+ #############
+ ##DHCPRelay##
+ #############
+ 
+ #DHCPRelay - DHCP Relay between host network and PiHole bridge
   dhcprelay:
-    image: modem7/dhcprelay
-    restart: always
-    network_mode: host
+    image: modem7/dhcprelay:latest
     container_name: DHCPRelay
     command: ["-id", "eno1", "-iu", "br_pihole", "172.33.0.100"] #https://fedoramagazine.org/build-network-bridge-fedora/
     cap_add:
       - NET_ADMIN
+    network_mode: host
+    restart: always
     mem_limit: 20m
     mem_reservation: 5m
 ```
