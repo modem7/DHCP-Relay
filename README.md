@@ -1,6 +1,6 @@
 # ISC DHCP Relay Agent
 
-![Docker Pulls](https://img.shields.io/docker/pulls/modem7/dhcprelay)
+![Docker Pulls](https://img.shields.io/docker/pulls/modem7/dhcprelay) ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/modem7/dhcprelay/latest)
 
 A simple ISC DHCP Relay Agent.
 
