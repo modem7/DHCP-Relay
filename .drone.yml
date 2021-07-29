@@ -1,0 +1,45 @@
+kind: pipeline
+type: docker
+name: latest
+
+steps:
+- name: latest
+  image: plugins/docker
+  settings:
+    repo: modem7/dhcprelay
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    tags: latest
+    purge: true
+
+trigger:
+  event:
+  - cron
+  cron:
+  - dhcprelay_latest
+
+---
+
+kind: pipeline
+type: docker
+name: stable
+
+steps:
+- name: latest
+  image: plugins/docker
+  settings:
+    repo: modem7/dhcprelay
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    tags: stable
+    purge: true
+
+trigger:
+  event:
+  - cron
+  cron:
+  - dhcprelay_stable
