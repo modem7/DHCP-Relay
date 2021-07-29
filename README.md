@@ -1,12 +1,17 @@
 # ISC DHCP Relay Agent
 
-![Docker Pulls](https://img.shields.io/docker/pulls/modem7/dhcprelay) ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/modem7/dhcprelay/latest)
+![Docker Pulls](https://img.shields.io/docker/pulls/modem7/dhcprelay) ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/modem7/dhcprelay/latest) [![Build Status](https://drone.modem7.com/api/badges/modem7/DHCP-Relay/status.svg)](https://drone.modem7.com/modem7/DHCP-Relay)
 
 A simple ISC DHCP Relay Agent.
 
 The Internet Systems Consortium DHCP Relay Agent, dhcrelay, provides a means for relaying DHCP and BOOTP requests from a subnet to which no DHCP server is directly connected to one or more DHCP servers on other subnets. It supports both DHCPv4/BOOTP and DHCPv6 protocols. 
 
 More info can be found here: https://linux.die.net/man/8/dhcrelay
+
+# Tags
+
+Latest tag is built automatically every week. 
+Stable tag is built automatically every month.
 
 # Configuration
 
