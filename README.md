@@ -8,6 +8,11 @@ The Internet Systems Consortium DHCP Relay Agent, dhcrelay, provides a means for
 
 More info can be found here: https://linux.die.net/man/8/dhcrelay
 
+# Tags
+
+Latest tag is built automatically every week. 
+Stable tag is built automatically every month.
+
 # Configuration
 
 In this config, udp port 67 must be free on the host.
