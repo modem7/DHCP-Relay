@@ -14,11 +14,11 @@ steps:
     tags: latest
     purge: true
 
-trigger:
-  event:
-  - cron
-  cron:
-  - dhcprelay_latest
+# trigger:
+  # event:
+  # - cron
+  # cron:
+  # - dhcprelay_latest
 
 ---
 
@@ -38,8 +38,8 @@ steps:
     tags: stable
     purge: true
 
-trigger:
-  event:
-  - cron
-  cron:
-  - dhcprelay_stable
+# trigger:
+  # event:
+  # - cron
+  # cron:
+  # - dhcprelay_stable
