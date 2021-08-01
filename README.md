@@ -11,7 +11,9 @@ More info can be found here: https://linux.die.net/man/8/dhcrelay
 # Tags
 
 Latest tag is built automatically every week.
+
 Monthly tag is built automatically every month.
+
 Stable tag is built automatically every year.
 
 # Configuration
