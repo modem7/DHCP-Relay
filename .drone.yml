@@ -2,17 +2,24 @@ kind: pipeline
 type: docker
 name: latest
 
+platform:
+  os: linux
+  arch: amd64
+
 steps:
-- name: latest
-  image: plugins/docker
+- name: latest  
+  image: thegeeklab/drone-docker-buildx
+  privileged: true
   settings:
     repo: modem7/dhcprelay
+    purge: true
+    cache_from: "modem7/dhcprelay:latest"
+    platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
     tags: latest
-    purge: true
 
 trigger:
   event:
@@ -26,17 +33,24 @@ kind: pipeline
 type: docker
 name: stable
 
+platform:
+  os: linux
+  arch: amd64
+
 steps:
-- name: latest
-  image: plugins/docker
+- name: stable  
+  image: thegeeklab/drone-docker-buildx
+  privileged: true
   settings:
     repo: modem7/dhcprelay
+    purge: true
+    cache_from: "modem7/dhcprelay:latest"
+    platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
     tags: stable
-    purge: true
 
 trigger:
   event:
