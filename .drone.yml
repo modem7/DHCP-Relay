@@ -13,7 +13,7 @@ steps:
   settings:
     repo: modem7/dhcprelay
     purge: true
-    platforms: linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
+    platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm/v8
     username:
       from_secret: docker_username
     password:
@@ -43,7 +43,7 @@ steps:
   settings:
     repo: modem7/dhcprelay
     purge: true
-    platforms: linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
+    platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm/v8
     username:
       from_secret: docker_username
     password:
