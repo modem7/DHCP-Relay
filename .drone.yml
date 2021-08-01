@@ -52,11 +52,11 @@ steps:
       from_secret: docker_password
     tags: monthly
 
-trigger:
-  event:
-  - cron
-  cron:
-  - dhcprelay_monthly
+# trigger:
+  # event:
+  # - cron
+  # cron:
+  # - dhcprelay_monthly
 
 ---
 
