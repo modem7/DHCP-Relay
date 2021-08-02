@@ -13,6 +13,7 @@ steps:
   settings:
     repo: modem7/dhcprelay
     purge: true
+    compress: true
     cache_from: "modem7/dhcprelay:latest"
     platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
     username:
