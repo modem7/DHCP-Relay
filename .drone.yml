@@ -15,18 +15,18 @@ steps:
     purge: true
     compress: true
     cache_from: "modem7/dhcprelay:latest"
-    platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
+    platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
     tags: latest
 
-trigger:
-  event:
-  - cron
-  cron:
-  - dhcprelay_latest
+# trigger:
+  # event:
+  # - cron
+  # cron:
+  # - dhcprelay_latest
 
 ---
 
@@ -46,7 +46,7 @@ steps:
     repo: modem7/dhcprelay
     purge: true
     cache_from: "modem7/dhcprelay:latest"
-    platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
+    platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
     username:
       from_secret: docker_username
     password:
@@ -77,7 +77,7 @@ steps:
     repo: modem7/dhcprelay
     purge: true
     cache_from: "modem7/dhcprelay:latest"
-    platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
+    platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
     username:
       from_secret: docker_username
     password:
