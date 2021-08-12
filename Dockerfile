@@ -1,4 +1,4 @@
-FROM alpine:3.14.0
+FROM alpine:edge
 RUN apk update
 RUN apk add --no-cache dhcrelay
 EXPOSE 67 67/udp
