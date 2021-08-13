@@ -8,7 +8,7 @@ platform:
 
 steps:
 - name: latest  
-  image: thegeeklab/drone-docker-buildx:20.10.10
+  image: thegeeklab/drone-docker-buildx:20.10.9
   privileged: true
   settings:
     repo: modem7/dhcprelay
