@@ -1,3 +1,17 @@
+---
+kind: pipeline
+type: docker
+name: lint
+steps:
+  - name: Lint Dockerfile
+    image: hadolint/hadolint:latest-alpine
+    pull: if-not-exists
+    commands:
+      - hadolint --version
+      - hadolint Dockerfile*
+
+---
+
 kind: pipeline
 type: docker
 name: deploy
@@ -33,9 +47,12 @@ steps:
 
 trigger:
   event:
-  - cron
+    - cron
   cron:
-  - dhcprelay_latest
+    - dhcprelay_latest
+
+depends_on:
+  - lint
 
 ---
 
@@ -54,7 +71,7 @@ steps:
   settings:
     repo: modem7/dhcprelay
     purge: true
-    cache_from: "modem7/dhcprelay:latest"
+    cache_from: "modem7/dhcprelay:monthly"
     platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
     username:
       from_secret: docker_username
@@ -93,7 +110,7 @@ steps:
   settings:
     repo: modem7/dhcprelay
     purge: true
-    cache_from: "modem7/dhcprelay:latest"
+    cache_from: "modem7/dhcprelay:stable"
     platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
     username:
       from_secret: docker_username
