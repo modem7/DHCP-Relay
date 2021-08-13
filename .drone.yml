@@ -30,11 +30,11 @@ steps:
   when:
     status: [ success, failure ]
 
-# trigger:
-  # event:
-  # - cron
-  # cron:
-  # - dhcprelay_latest
+trigger:
+  event:
+    - cron
+  cron:
+    - dhcprelay_latest
 
 ---
 
@@ -53,7 +53,7 @@ steps:
   settings:
     repo: modem7/dhcprelay
     purge: true
-    cache_from: "modem7/dhcprelay:latest"
+    cache_from: "modem7/dhcprelay:monthly"
     platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
     username:
       from_secret: docker_username
@@ -92,7 +92,7 @@ steps:
   settings:
     repo: modem7/dhcprelay
     purge: true
-    cache_from: "modem7/dhcprelay:latest"
+    cache_from: "modem7/dhcprelay:stable"
     platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
     username:
       from_secret: docker_username
