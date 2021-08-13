@@ -8,7 +8,7 @@ platform:
 
 steps:
 - name: latest  
-  image: thegeeklab/drone-docker-buildx
+  image: thegeeklab/drone-docker-buildx:20.10.10
   privileged: true
   settings:
     repo: modem7/dhcprelay
@@ -30,11 +30,11 @@ steps:
   when:
     status: [ success, failure ]
 
-trigger:
-  event:
-  - cron
-  cron:
-  - dhcprelay_latest
+# trigger:
+  # event:
+  # - cron
+  # cron:
+  # - dhcprelay_latest
 
 ---
 
@@ -48,7 +48,7 @@ platform:
 
 steps:
 - name: monthly  
-  image: thegeeklab/drone-docker-buildx
+  image: thegeeklab/drone-docker-buildx:20.10.10
   privileged: true
   settings:
     repo: modem7/dhcprelay
@@ -87,7 +87,7 @@ platform:
 
 steps:
 - name: stable  
-  image: thegeeklab/drone-docker-buildx
+  image: thegeeklab/drone-docker-buildx:20.10.10
   privileged: true
   settings:
     repo: modem7/dhcprelay
