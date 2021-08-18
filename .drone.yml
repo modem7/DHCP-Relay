@@ -10,6 +10,14 @@ steps:
       - hadolint --version
       - hadolint Dockerfile*
 
+trigger:
+  event:
+    - cron
+  cron:
+    - dhcprelay_latest
+    - dhcprelay_monthly
+    - dhcprelay_stable
+
 ---
 
 kind: pipeline
@@ -101,6 +109,9 @@ trigger:
   cron:
   - dhcprelay_monthly
 
+depends_on:
+  - lint
+
 ---
 
 kind: pipeline
@@ -143,3 +154,6 @@ trigger:
   - cron
   cron:
   - dhcprelay_stable
+
+depends_on:
+  - lint
