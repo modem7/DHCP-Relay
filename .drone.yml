@@ -50,7 +50,7 @@ steps:
     tags: latest
 
 - name: slack
-  image: plugins/slack
+  image: themaz/drone-slack
   settings:
     webhook:
       from_secret: slack_hook
@@ -96,7 +96,7 @@ steps:
     tags: monthly
 
 - name: slack
-  image: plugins/slack
+  image: themaz/drone-slack
   settings:
     webhook:
       from_secret: slack_hook
@@ -142,7 +142,7 @@ steps:
     tags: stable
 
 - name: slack
-  image: plugins/slack
+  image: themaz/drone-slack
   settings:
     webhook:
       from_secret: slack_hook
