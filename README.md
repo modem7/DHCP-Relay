@@ -9,12 +9,11 @@ The Internet Systems Consortium DHCP Relay Agent, dhcrelay, provides a means for
 More info can be found here: https://linux.die.net/man/8/dhcrelay
 
 # Tags
-
-Latest tag is built automatically every week.
-
-Monthly tag is built automatically every month.
-
-Stable tag is built automatically every year.
+| Tag | Description |
+| :----: | --- |
+| Latest | Automatically built every week. |
+| Monthly | Automatically built every month. |
+| Stable | Automatically built every year. |
 
 # Configuration
 
