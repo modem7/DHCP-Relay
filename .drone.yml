@@ -1,24 +1,4 @@
 ---
-kind: pipeline
-type: docker
-name: lint
-steps:
-  - name: Lint Dockerfile
-    image: hadolint/hadolint:latest-alpine
-    pull: if-not-exists
-    commands:
-      - hadolint --version
-      - hadolint Dockerfile*
-
-trigger:
-  event:
-    - cron
-  cron:
-    - dhcprelay_latest
-    - dhcprelay_monthly
-    - dhcprelay_stable
-
----
 
 kind: pipeline
 type: docker
@@ -29,6 +9,13 @@ platform:
   arch: amd64
 
 steps:
+- name: Lint Dockerfile
+  image: hadolint/hadolint:latest-alpine
+  pull: if-not-exists
+  commands:
+    - hadolint --version
+    - hadolint Dockerfile*
+
 - name: latest  
   image: thegeeklab/drone-docker-buildx
   privileged: true
@@ -63,9 +50,6 @@ trigger:
   cron:
     - dhcprelay_latest
 
-depends_on:
-  - lint
-
 ---
 
 kind: pipeline
@@ -77,6 +61,14 @@ platform:
   arch: amd64
 
 steps:
+
+- name: Lint Dockerfile
+  image: hadolint/hadolint:latest-alpine
+  pull: if-not-exists
+  commands:
+    - hadolint --version
+    - hadolint Dockerfile*
+
 - name: monthly  
   image: thegeeklab/drone-docker-buildx
   privileged: true
@@ -109,9 +101,6 @@ trigger:
   cron:
   - dhcprelay_monthly
 
-depends_on:
-  - lint
-
 ---
 
 kind: pipeline
@@ -123,6 +112,13 @@ platform:
   arch: amd64
 
 steps:
+- name: Lint Dockerfile
+  image: hadolint/hadolint:latest-alpine
+  pull: if-not-exists
+  commands:
+    - hadolint --version
+    - hadolint Dockerfile*
+
 - name: stable  
   image: thegeeklab/drone-docker-buildx
   privileged: true
@@ -154,6 +150,3 @@ trigger:
   - cron
   cron:
   - dhcprelay_stable
-
-depends_on:
-  - lint
