@@ -11,8 +11,7 @@ More info can be found here: https://linux.die.net/man/8/dhcrelay
 # Tags
 | Tag | Description |
 | :----: | --- |
-| Latest | Automatically built every week. |
-| Monthly | Automatically built every month. |
+| Latest | Automatically built every month. |
 | Stable | Automatically built every year. |
 
 # Configuration
