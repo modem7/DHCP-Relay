@@ -34,7 +34,9 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    tags: latest
+    tags:
+      - latest
+      - 4.4.2
 
 - name: slack
   image: themaz/drone-slack
@@ -46,56 +48,4 @@ steps:
 
 trigger:
   event:
-    - cron
-  cron:
-    - dhcprelay_latest
-
----
-
-kind: pipeline
-type: docker
-name: stable
-
-platform:
-  os: linux
-  arch: amd64
-
-steps:
-- name: Lint Dockerfile
-  image: hadolint/hadolint:latest-alpine
-  pull: if-not-exists
-  commands:
-    - hadolint --version
-    - hadolint Dockerfile*
-
-- name: stable  
-  image: thegeeklab/drone-docker-buildx
-  privileged: true
-  settings:
-    repo: modem7/dhcprelay
-    purge: true
-    cache_from: "modem7/dhcprelay:stable"
-    platforms: # if it doesn't work run docker run --privileged --rm tonistiigi/binfmt --install all
-      - linux/amd64
-      - linux/arm/v6
-      - linux/arm/v7
-      - linux/arm64/v8
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
-    tags: stable
-
-- name: slack
-  image: themaz/drone-slack
-  settings:
-    webhook:
-      from_secret: slack_hook
-  when:
-    status: [ success, failure ]
-
-trigger:
-  event:
-  - cron
-  cron:
-  - dhcprelay_stable
+    - custom
