@@ -1,4 +1,4 @@
-FROM alpine:3.15.1
+FROM alpine:3.15.2
 RUN apk update && \
         apk add --no-cache \
 		dhcrelay=4.4.2_p1-r1
