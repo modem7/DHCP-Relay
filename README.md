@@ -14,8 +14,8 @@ More info can be found here: https://linux.die.net/man/8/dhcrelay
 # Tags
 | Tag | Description |
 | :----: | --- |
-| Latest | Automatically built every month. |
-| Stable | Automatically built every year. |
+| Latest | Latest release built upon the latest version. |
+| 4.4.x | Versioned release. |
 
 # Configuration
 
