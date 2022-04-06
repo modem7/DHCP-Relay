@@ -1,14 +1,14 @@
 name: Issue assignment
 
 on:
-    issues:
-        types: [opened]
+  issues:
+    types: [opened]
 
 jobs:
-    auto-assign:
-        runs-on: ubuntu-latest
-        steps:
-            - name: 'Auto-assign issue'
-              uses: pozil/auto-assign-issue@v1.4.0
-              with:
-                  assignees: modem7
+  auto-assign:
+    runs-on: ubuntu-latest
+    steps:
+        - name: 'Auto-assign issue'
+          uses: pozil/auto-assign-issue@v1.4.0
+          with:
+            assignees: modem7
