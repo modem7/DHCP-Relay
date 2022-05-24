@@ -30,7 +30,7 @@ services:
  ##DHCPRelay##
  #############
  
- #DHCPRelay - DHCP Relay between host network and PiHole bridge
+ #DHCPRelay - DHCP Relay between host network and Docker bridge
   dhcprelay:
     image: modem7/dhcprelay:latest
     container_name: DHCPRelay
