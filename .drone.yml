@@ -23,6 +23,7 @@ steps:
     repo: modem7/dhcprelay
     purge: true
     compress: true
+    build_args: BUILDKIT_INLINE_CACHE=1
     use_cache: true
     cache_from: "modem7/dhcprelay:latest"
     platforms: # if it doesn't work run docker run --privileged --rm tonistiigi/binfmt --install all
