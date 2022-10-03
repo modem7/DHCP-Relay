@@ -42,3 +42,24 @@ services:
     mem_limit: 20m
     mem_reservation: 5m
 ```
+
+# Commands explanation
+```bash
+-i ifname
+Listen for DHCPv4/BOOTP queries on interface ifname. Multiple interfaces may be specified by using more than one -i option. If no interfaces are specified on the command line, dhcrelay will identify all network interfaces, eliminating non-broadcast interfaces if possible, and attempt to listen on all of them.
+
+-d
+Force dhcrelay to run as a foreground process. Useful when running dhcrelay under a debugger, or running out of inittab on System V systems.
+
+eno1
+Your NIC (you can find this with ifconfig -a)
+
+-u [address%]ifname
+Specifies the ''upper'' network interface for DHCPv6 relay mode: the interface to which queries from clients and other relay agents should be forwarded. At least one -u option must be included in the command line when running in DHCPv6 mode. The interface name ifname is a mandatory parameter. The destination unicast or multicast address can be specified by address%; if not specified, the relay agent will forward to the DHCPv6 All_DHCP_Relay_Agents_and_Servers multicast address.
+
+br_pihole
+Your Docker network bridge name.
+
+172.33.0.100
+The destination IP address for the packets. Typically your PiHole bridge IP address.
+```
