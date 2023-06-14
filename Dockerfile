@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1
 
-FROM alpine:3.18.0
+FROM alpine:3.18.2
 RUN apk add --no-cache \
             dhcrelay>=4.4.3 \
             tzdata
