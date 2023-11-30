@@ -5,6 +5,8 @@
 [![Build Status](https://drone.modem7.com/api/badges/modem7/DHCP-Relay/status.svg)](https://drone.modem7.com/modem7/DHCP-Relay)
 [![GitHub latest commit](https://badgen.net/github/last-commit/modem7/DHCP-Relay)](https://GitHub.com/modem7/DHCP-Relay/commit/)
 
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/modem7)
+
 A simple ISC DHCP Relay Agent.
 
 The Internet Systems Consortium DHCP Relay Agent, dhcrelay, provides a means for relaying DHCP and BOOTP requests from a subnet to which no DHCP server is directly connected to one or more DHCP servers on other subnets. It supports both DHCPv4/BOOTP and DHCPv6 protocols. 
