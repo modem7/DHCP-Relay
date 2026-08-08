@@ -1,0 +1,22 @@
+_extends: .github
+# https://github.com/apps/settings
+# https://github.com/repository-settings/app
+
+repository:
+  description: Docker DHCP Relay
+  topics: docker, dhcp, dhcp-relay, isc-dhcp
+
+  private: false
+  has_issues: true
+  has_wiki: false
+  has_downloads: true
+  has_projects: false
+
+  default_branch: master
+
+  allow_squash_merge: true
+  allow_rebase_merge: true
+  allow_merge_commit: false
+
+  enable_automated_security_fixes: true
+  enable_vulnerability_alerts: true

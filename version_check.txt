@@ -1,1 +1,0 @@
-docker run -it --rm alpine:edge sh -c "apk update && clear && apk info -d dhcrelay"

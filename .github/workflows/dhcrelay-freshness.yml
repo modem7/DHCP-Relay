@@ -1,0 +1,49 @@
+name: Check dhcrelay freshness
+
+on:
+  schedule:
+    # Weekly - Debian security backports to isc-dhcp-relay land on the order
+    # of weeks/months, not days, so there's no value checking more often.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve current Debian package version
+        id: debian
+        run: |
+          docker run --rm debian:trixie-slim sh -c \
+            "apt-get update -qq && apt-cache policy isc-dhcp-relay | awk '/Candidate:/ {print \$2}'" \
+            > debian_version.txt
+          echo "version=$(cat debian_version.txt)" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve currently published image version
+        id: published
+        run: |
+          published=$(curl -fsS "https://hub.docker.com/v2/repositories/modem7/dhcprelay/tags?page_size=100" \
+            | jq -r '.results[].name' | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -1)
+          echo "version=$published" >> "$GITHUB_OUTPUT"
+
+      - name: Compare and open a tracking issue if stale
+        if: steps.published.outputs.version != '' && !startsWith(steps.debian.outputs.version, steps.published.outputs.version)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEBIAN_VERSION: ${{ steps.debian.outputs.version }}
+          PUBLISHED_VERSION: ${{ steps.published.outputs.version }}
+        run: |
+          set -eu
+          existing=$(gh issue list --label dependencies --state open --search "dhcrelay version is out of date in:title" --json number --jq 'length')
+          if [ "$existing" -gt 0 ]; then
+            echo "An open freshness issue already exists, skipping."
+          else
+            gh issue create \
+              --title "dhcrelay version is out of date" \
+              --label dependencies \
+              --body "Debian trixie currently offers isc-dhcp-relay ${DEBIAN_VERSION}, but the latest published image tag is ${PUBLISHED_VERSION}. Trigger a rebuild via the Woodpecker pipeline's manual event to pick up the update. This issue needs closing manually once the new image is published."
+          fi
