@@ -1,0 +1,99 @@
+when:
+  - event: [push, manual]
+    branch: master
+    path:
+      # Scoped to what actually gets baked into the image - docs/CI-only
+      # changes elsewhere shouldn't trigger a rebuild/republish.
+      include:
+        - Dockerfile
+        - entrypoint.sh
+        - .woodpecker.yml
+
+steps:
+  # Resolves the DHCPv4/v6 relay version tag (e.g. "4.4.3") from Debian's
+  # live apt index for isc-dhcp-relay, rather than a version pinned in the
+  # Dockerfile - the package is deliberately left unpinned there so every
+  # rebuild picks up Debian's latest security backport automatically.
+  - name: prepare-tags
+    image: debian:trixie-slim
+    commands:
+      - apt-get update -qq
+      - pkg_ver=$(apt-cache policy isc-dhcp-relay | awk '/Candidate:/ {print $2}')
+      - relay_ver=$(echo "$pkg_ver" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
+      - printf "latest\n%s\n" "$relay_ver" > .tags
+      - echo "Tags to publish:" && cat .tags
+
+  - name: build-and-push
+    image: woodpeckerci/plugin-docker-buildx
+    privileged: true
+    depends_on: [prepare-tags]
+    settings:
+      repo: modem7/dhcprelay
+      dockerfile: Dockerfile
+      context: .
+      purge: true
+      compress: true
+      build_args:
+        BUILDKIT_INLINE_CACHE: "1"
+      cache_from:
+        - type=registry\,ref=modem7/dhcprelay:latest
+      platforms: linux/amd64,linux/arm64
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      tags_file: .tags
+
+  - name: pushrm-dockerhub
+    image: chko/docker-pushrm
+    depends_on:
+      - build-and-push
+    environment:
+      DOCKER_USER:
+        from_secret: docker_username
+      DOCKER_PASS:
+        from_secret: docker_password
+      PUSHRM_FILE: README.md
+      PUSHRM_SHORT: Docker DHCP Relay
+      PUSHRM_TARGET: modem7/dhcprelay
+    when:
+      - status: [success]
+
+  # Single dynamic-status notifier, replacing notify-slack-success/failure.
+  # CI_PIPELINE_STATUS must stay bare ($VAR, not ${VAR}) - Woodpecker
+  # resolves ${VAR} at compile time, before this value exists
+  # (woodpecker-ci/woodpecker#6826).
+  - name: notify-slack
+    image: alpine
+    depends_on:
+      - build-and-push
+    environment:
+      SLACK_WEBHOOK:
+        from_secret: slack_hook
+    commands:
+      - apk add --no-cache curl jq >/dev/null
+      - COMMIT_SHORT=$(echo "$CI_COMMIT_SHA" | cut -c1-10)
+      - >
+        PAYLOAD=$(jq -n
+        --arg status "$CI_PIPELINE_STATUS"
+        --arg branch "$CI_COMMIT_BRANCH"
+        --arg output "${CI_REPO}#${CI_PIPELINE_NUMBER}"
+        --arg output_url "$CI_PIPELINE_URL"
+        --arg build "$CI_PIPELINE_NUMBER"
+        --arg commit "$COMMIT_SHORT"
+        --arg commit_url "$CI_PIPELINE_FORGE_URL"
+        --arg author "$CI_COMMIT_AUTHOR"
+        --arg message "$CI_COMMIT_MESSAGE"
+        '{attachments:[{color:(if $status == "success" then "good" else "danger" end),fields:[
+        {title:"Status",value:$status,short:true},
+        {title:"Branch",value:$branch,short:true},
+        {title:"Output",value:("<"+$output_url+"|"+$output+">"),short:true},
+        {title:"Build Number",value:$build,short:true},
+        {title:"Commit",value:("<"+$commit_url+"|"+$commit+">"),short:true},
+        {title:"Author",value:$author,short:true},
+        {title:"Commit Message",value:$message,short:false}
+        ]}]}')
+      - >
+        curl -fsS -X POST -H 'Content-type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK"
+    when:
+      - status: [success, failure]
