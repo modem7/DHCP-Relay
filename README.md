@@ -14,12 +14,29 @@ The Internet Systems Consortium DHCP Relay Agent, dhcrelay, provides a means for
 
 More info can be found here: https://linux.die.net/man/8/dhcrelay
 
-> **Note:** upstream ISC-DHCP (including `dhcrelay`) has had no releases since 2022 and is EOL -
-> see [#63](https://github.com/modem7/DHCP-Relay/issues/63). This image is built on Debian, which
-> continues to backport security fixes to its packaged `isc-dhcp-relay` even though upstream
-> doesn't. There's no drop-in replacement for `dhcrelay`'s simple CLI-flag relay model yet; ISC's
-> own recommended successor, [Kea](https://www.isc.org/kea/), uses a different JSON-config
-> paradigm and would be a separate image.
+> [!IMPORTANT]
+> **This repo is now in maintenance mode.** The changes below are the last planned update here.
+> Upstream ISC-DHCP (including `dhcrelay`) has had no releases since 2022 and is EOL - see
+> [#63](https://github.com/modem7/DHCP-Relay/issues/63). Rather than keep patching around a dead
+> upstream, future work is moving to [Kea](https://www.isc.org/kea/), ISC's supported successor,
+> in a new repo: **[modem7/kea-dhcp-relay](#) _(placeholder - link to be added once that repo
+> exists)_**. This image will keep receiving Debian's security backports (see the weekly freshness
+> check below) but no further feature work is planned here.
+
+## What changed in this update
+
+- Base image moved from Alpine (which dropped the `dhcrelay` package entirely as of 3.21) to
+  `debian:trixie-slim`, which still packages and security-patches `isc-dhcp-relay`.
+- The container now runs as a **non-root user**, with only the two capabilities it actually
+  needs (`NET_RAW`, `NET_BIND_SERVICE`) - verified by testing, not just added out of caution.
+- A real `HEALTHCHECK` (process-liveness based) replaces the old commented-out one, which
+  wouldn't have worked against `dhcrelay`'s raw-socket relay model.
+- Configuration can now be done via `DHCRELAY_*` environment variables instead of hand-editing
+  the compose `command:` array (the old style still works unchanged - see below).
+- A weekly check compares Debian's current `isc-dhcp-relay` version against the published image
+  tag and opens a tracking issue if it's drifted, so security patches don't go unnoticed.
+- CI/build tagging now reflects the actual `isc-dhcp-relay` version baked into the image (e.g.
+  `4.4.3`) instead of a hardcoded, driftable tag.
 
 # Tags
 | Tag | Description |
