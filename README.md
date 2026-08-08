@@ -15,13 +15,15 @@ The Internet Systems Consortium DHCP Relay Agent, dhcrelay, provides a means for
 More info can be found here: https://linux.die.net/man/8/dhcrelay
 
 > [!IMPORTANT]
-> **This repo is now in maintenance mode.** The changes below are the last planned update here.
+> **This repo has now been archived.** The changes below are the last planned update here.
 > Upstream ISC-DHCP (including `dhcrelay`) has had no releases since 2022 and is EOL - see
 > [#63](https://github.com/modem7/DHCP-Relay/issues/63). Rather than keep patching around a dead
-> upstream, future work is moving to [Kea](https://www.isc.org/kea/), ISC's supported successor,
-> in a new repo: **[modem7/kea-dhcp-relay](#) _(placeholder - link to be added once that repo
-> exists)_**. This image will keep receiving Debian's security backports (see the weekly freshness
-> check below) but no further feature work is planned here.
+> upstream, this has been replaced by [modem7/dnsmasq-relay](https://github.com/modem7/dnsmasq-relay).
+> [Kea](https://www.isc.org/kea/) (ISC's supported DHCP successor) was the original plan, but Kea
+> turned out to have no relay agent of its own - it's server-only - so the replacement is built on
+> `dnsmasq`'s actively-maintained `--dhcp-relay` mode instead. This image will keep receiving
+> Debian's security backports (see the weekly freshness check below) but no further feature work
+> is planned here.
 
 ## What changed in this update
 
