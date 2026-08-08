@@ -21,8 +21,7 @@ More info can be found here: https://linux.die.net/man/8/dhcrelay
 > upstream, this has been replaced by [modem7/dnsmasq-relay](https://github.com/modem7/dnsmasq-relay).
 > [Kea](https://www.isc.org/kea/) (ISC's supported DHCP successor) was the original plan, but Kea
 > turned out to have no relay agent of its own - it's server-only - so the replacement is built on
-> `dnsmasq`'s actively-maintained `--dhcp-relay` mode instead. This image will keep receiving
-> Debian's security backports (see the weekly freshness check below) but no further feature work
+> `dnsmasq`'s actively-maintained `--dhcp-relay` mode instead. No further feature work
 > is planned here.
 
 ## What changed in this update
